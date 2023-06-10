@@ -3,9 +3,12 @@
 %P A C O T E S
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Adicione aqui seus pacotes
+\usepackage[version = 2]{acro}
 \usepackage[]{algorithm2e}
 \usepackage{paralist}
 \usepackage{float}
+\usepackage{verbatim} % para comments
+\usepackage{mathtools} % para fórmulas matemáticas
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %I N I C I O  D O  D O C U M E N T O
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -20,20 +23,21 @@
 \definecolor{lightlightgray}{gray}{0.85}
 
 % título da tese é obrigatório
-\title{Título do Trabalho}
+\title{Avaliação da Adição de Captions na Detecção de
+Anomalia}
 
 % autor é obrigatório; máximo de 3 autores
-\author{Nome completo aluno 1}{\input{elementos-pretextuais/agradecimentos}}
+\author{Bárbara Lúcia Martins Barboza}{\input{elementos-pretextuais/agradecimentos}}
 %\author{Nome completo aluno 2}{\input{elementos-pretextuais/agradecimentos}}
 %\author{Nome completo aluno 3}{\input{elementos-pretextuais/agradecimentos}}
 
 % orientador é obrigatório
-\advisor[Prof.]{Filipe Braida do Carmo,~D.Sc.}{}
+\advisor[Prof.]{Leandro Guimarães M. Alvim,~D.Sc.}{}
 % \advisor[Prof.]{Nome completo,~D.Sc.}{}{a} % orientadora
 
 % co-orientador é opcional
 %\coadvisor[Prof.]{Nome do co-orientador,~M.Sc.}{}
-\coadvisor[Prof.]{Nome do co-orientador,~M.Sc.}{}{a} % co-orientadora
+%\coadvisor[Prof.]{Nome do co-orientador,~M.Sc.}{}{a} % co-orientadora
 
 % máximo de 3 integrantes da banca (orientador e co-orientador já são adicionados automaticamente)
 \banca[Prof.]{Nome do participante banca 1,~D.Sc.}{DCC~-~UFRRJ}
@@ -43,7 +47,7 @@
 \location{Nova Iguaçu}{RJ}{Brasil}
 
 % mês e ano de defesa
-\date{Janeiro}{2020}
+\date{Julho}{2023}
 \maketitle
 
 \startdocument
@@ -93,11 +97,12 @@
 %C O N T E Ú D O
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \startcontent
-\input{elementos-textuais/introducao}
-\input{elementos-textuais/fundamentacao}
-\input{elementos-textuais/proposta}
-\input{elementos-textuais/experimentos}
-\input{elementos-textuais/conclusao}
+\input{elementos-textuais/1_introducao}
+\input{elementos-textuais/2_fundamentacao}
+\input{elementos-textuais/3_desafios}
+\input{elementos-textuais/4_proposta}
+\input{elementos-textuais/5_experimentos}
+\input{elementos-textuais/6_conclusao}
 \pagebreak
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -1,0 +1,89 @@
+\chapter{Introdução}\label{chp:INTRODUCAO}
+
+Com o grande aumento de sistemas de câmeras de vigilância pelas cidades, atrelado a maior capacidade computacional dos dispositivos eletrônicos, a área de visão computacional tem despertado o interesse de muitos perquisadores pelo mundo [REF]. E, quando se trata disso, uma tarefa específica da visão computacional tem grande espaço com os sistemas de vigilância: a detecção de anomalia.
+
+Segundo o dicionário Aurélio, anomalia significa irregularidade ou anormalidade [REF]. Quando falamos em eventos anômalos, nos referimos a acontecimentos que fogem do normal ou do esperado em um determinado contexto. Um exemplo é uma câmera de vigilância numa estrada que registra diariamente veículos diversos passando pela pista. Nesse caso, esse cenário é considerado normal. Se, em algum dia, há uma batida entre dois veiculos, esse evento é considerado uma anomalia.
+
+O interesse na detecção de anomalia reside na possibilidade de tomar as medidas necessárias imediatamente. No caso de um crime, por exemplo, assim que detectado, pode-se chamar a polícia; em caso de incêncio ou acidente, os bombeiros ou o serviço de atendimento móvel do local. Em todo caso, detectar eventos anômalos é importante para que se possa diminuir os efeitos negativos deles.
+
+Sendo assim, pode-se imaginar que algum profissional poderia ficar analisando todas as imagens para decidir o que é ou não anomalia. Porém, esse processo seria inviável, devido à necessidade de atenção constante do(s) observador(es) a todas as imagens. Além disso, ao colocar humanos para fazerem essa tarefa, existe também a maior probabilidade de erro, dado que, o que pode ser considerado anomalia para um, pode não ser um evento anômalo para outro. Além da provável falta de percepção de alguns detalhes que poderiam ajudar a categorizar algo como anomalia ou não.
+
+Sendo assim, a detecção manual de anomalia é inviável, sendo necessária a programação de algum sistema para fazê-la. É possível encontrar na literatura muitos textos a respeito desse assunto, alguns voltados para um contexto específico, outros para contextos mais generalizados. O fato é que muitas vezes usa-se Inteligência Artificial para essa tarefa, mais especificamente Redes Neurais Artificiais, que serão explicadas com mais detalhes mais a frente.
+
+%Falará um breve introdução ao trabalho, explicando brevemente o contexto, motivação e problema.%
+
+\section{Objetivos e Metodologia}
+
+Esse trabalho tem como objetivo analisar uma possível melhora nos sistemas de detecção de anomalia tradicionais, que utilizam Redes Neurais Convolucionais, adicionando um elemento na aprendizagem: as descrições das imagens, também chamadas de \textit{captions}. Sendo assim, além da detecção de padrões nas imagens em si, haverá também a entrada de texto, e assim, um sistema mixed-input, com mais de uma entrada na Rede Neural. 
+
+A abordagem padrão na detecção de Anomalia é utilizar um \textit{autoencoder}, ou seja, uma rede que aprenda a reconstruir a entrada fornecida, tendo assim a entrada igual a saída, com o mínimo de erro possível.
+
+No caso desse trbalho, para observar se a adição das captions ao modelo melhoraria a detecção dos eventos anômalos, foram feitas duas arquiteturas de redes neurais: uma com camadas convolucionais e MaxPooling, e uma última camada \textit{fully Connected} para aprendizado; e a outra, uma MLP (\textit{Multilayer Perceptron}) para a parte das captions.
+
+Foi selecionado para o trabalho um \href{https://paperswithcode.com/dataset/ubi-fights}{dataset de anomalia de brigas} em diversos ambientes. Esse dataset possui vídeos de câmeras de segurança e os targets para cada frame dos vídeos em um arquivo Excel. Dado que o problema de Detecção de Anomalia é fortemente dependente do contexto [REF], foi escolhido um vídeo de briga em uma contexto específico, e seus frames, extraídos. Assim, as imagens dos frames foram postas como a entrada da primeira arquitetura de rede neural.
+
+Ao passo que, para a execução da segunda arquitetura, foi utilizado o pacote \href{https://github.com/OFA-Sys/OFA}{OFA} para a execução das captions das imagens. E, posteriormente, tendo as captions, foi utilizada a ferramenta de \href{https://radimrehurek.com/gensim/models/doc2vec.html}{Doc2Vec} do Gensim para transformar os textos das captions em vetores.
+
+Então, a saída das duas redes neurais foi concatenada como a entrada para uma última camada que reconstroi as imagens dos frames dos vídeos que representam eventos não anômalos.
+
+Além dessa execução utilizando uma MLP e uma CNN, foi feita também a abordagem padrão para resolver o problema, utilizando somente a CNN, para posterior comparação entre as duas abordagens.
+
+E então, para as duas arquiteturas de redes, utilizando o conjunto de validação, foi calculado um limiar do erro na reconstrução das imagens que indicaria se as imagens possuíam eventos anômalos ou não. Caso o erro na reconstrução da entrada no conjunto de teste passasse desse limiar, então, o modelo estaria indicando que a imagem contém uma anomalia, se não, a imagem seria considerada normal.
+
+Ao final desse trabalho, as predições das duas arquiteturas de redes neurais foram comparadas, chegando-se a uma conclusão sobre se houve uma melhora no modelo com a introdução das captions ou não.
+%Nesta subseção seria definido os objetivos do projeto final.%
+
+\section{Resumo dos Resultados}
+Na tabela \ref{tab:RESULTADOS_MIXED_INPUT_E_CNN} temos os erros médios para imagens normais e com anomalia, os limiares e o \textit{f1 score} e acurácia para cada classe para cada modelo.
+
+\begin{table}[!htb]
+  \centering
+  \label{tab:RESULTADOS_MIXED_INPUT_E_CNN}
+  %\rowcolors{1}{}{lightlightgray}
+  \begin{tabular}{l c c c c}
+  \toprule
+    & Erro Médio & Limiar & F1 Score & Acurácia \\
+    \midrule
+        Mixed-input &  &  &  & \\
+        \hspace{0.5cm}Normal & 4 & - & 1 & 2\\
+        \hspace{0.5cm}Anomalia & 4 & 3 & 3 & 1\\
+        CNN &  &  &  &  \\
+        \hspace{0.5cm}Normal & 4 & - & 3 & 1\\
+        \hspace{0.5cm}Anomalia & 4 & $\emptyset$ & 3 & 1\\
+
+    \bottomrule
+  \end{tabular}
+  \caption{Resultados do experimento CNN com caption vs somento CNN.}
+\end{table}
+
+\textit{TO DO :: TABLE WITH RESULTS}
+
+\section{Principais Contribuições}
+\begin{itemize}
+  \item \textit{Estudo sobre Detecção de Anomalia}
+  
+  Este trabalho contribuiu como material de estudo sobre o problema de Detecção de Anomalia, escrito em língua portuguesa, utilizando ainda dados reais.
+  
+  \item \textit{Estudo sobre o impacto da adição de captions na detecção de anomalia}
+
+  Essa dissertação contribuiu ainda com o estudo de uma proposta  de melhoria nos modelos de Detecção de Anomalia tradicionais, comparando a proposta com modelos apenas de CNN e verificando que os modelos tradicionais tendem a obter melhor acurácia do que modelos em que acrestamos as descrições das imagens. \textit{TO DO :: CONFIRMAR ESSE RESULTADO DE QUE A CNN ONLY É MELHOR DO QUE MIXED-INPUT}
+  
+\end{itemize}
+
+\section{Organização da Dissertação}
+
+Esse trabalho será organizado da seguinte maneira:
+
+O capítulo 1 fez uma breve introdução ao tema, objetivo e metodologia do trabalho, além do resumo dos resultados e contribuições.
+
+O capítulo 2 conterá uma fundamentação teórica e alguns conceitos essenciais para o entendimento do trabalho.
+
+O capítulo 3 tratará de alguns desafios específicos do problema de Detecção de Anomalia.
+
+O capítulo 4 apresentará a proposta em mais detalhes, bem como também os trabalhos relacionados. 
+
+Já no capítulo 5, será apresentada a base de dados utilizada, toda a metodologia, os experimentos e resultados.
+
+O capítulo 6 finalizará apresentando a conclusão do trabalho, assim como possíveis trabalhos futuros.
+
+%Nesta parte, será explicada como será a organização do trabalho.%
